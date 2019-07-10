@@ -5,12 +5,14 @@ import kotlin.Boolean as Boolean1
 import kotlin.text.ifBlank as ifBlank1
 
 object Utils {
-    fun parseFullName(fullName: String?): Pair<String, String>{
-        val parts = fullName?.split(" ")
-        val firstName = parts?.getOrNull(0).orEmpty().trim().ifEmpty { "null" }
-        val lastName = parts?.getOrNull(1).orEmpty().trim().ifEmpty { "null" }
+    fun parseFullName(fullName: String?): Pair<String?, String?> {
 
-        return firstName to lastName
+        val parts: List<String>? = fullName?.trim()?.split(" ")
+        val firstName = parts?.getOrNull(0)?.ifBlank1 { null }
+        val lastName = parts?.getOrNull(1)?.ifBlank1 { null }
+
+        return  firstName to lastName
+
     }
 
     fun transliteration(payload: String, devider: String = " "): String {
